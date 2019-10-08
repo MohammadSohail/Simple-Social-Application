@@ -51,18 +51,42 @@ window.addEventListener('load',function() {
         //get hobby
         var hobbyField = document.getElementById('hobby');
         var hobby = hobbyField.value;
-        console.log(hobby);
 
         //get gender
         var genderField = document.getElementById('gender');
         var s = genderField.selectedIndex;
         var gender = genderField.options[s].value;
-        console.log(gender);
-        var st = '';
-        for(var i = 0; i < users.length; i++){
-            st += ' ' + users[i].name;
+        
+        var resultsHtml = '';
+        var usersLength = users.length;
+
+        function task(a,b,c){
+            var res = '';
+            res += '<div class="person-row">\
+            <img src="images/' + a + '" />\
+            <div class="person-info">\
+            <div>' + b + '</div>\
+            <div>' + c + '</div></div>\
+             <button>Add as friend</button></div>'; 
+
+             return res;
         }
-        results.innerHTML = st;
+
+        for(var i = 0; i < usersLength; i++) {   
+            // check gender
+            if (gender == 'A' || gender == users[i].gender) {
+                //check hobby
+                if(hobby == '' || hobby == users[i].hobby){
+
+                resultsHtml += task(users[i].avatar, users[i].name, users[i].hobby); 
+                
+                }
+            }
+
+        }
+        
+        results.innerHTML = resultsHtml;
+
     }
     var searchBtn = this.document.getElementById('searchBtn');
     searchBtn.addEventListener('click', search);
